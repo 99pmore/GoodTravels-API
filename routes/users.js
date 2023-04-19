@@ -16,12 +16,38 @@ router.get('/users', async (req, res) => {
   }
 })
 
+// Login de un usuario
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body
+
+  try {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales incorrectas' })
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenciales incorrectas' })
+    }
+
+    res.status(200).send(user)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error interno del servidor' })
+  }
+})
+
 // Crear un usuario
 router.post('/users', async (req, res) => {
   const { name, email, password } = req.body
 
   try {
-    const user = new User({ name, email, password })
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const user = new User({ name, email, password: hashedPassword })
     await user.save()
     res.status(201).send(user)
 
@@ -71,7 +97,8 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     if (password) {
-      user.password = password
+      const hashedPassword = await bcrypt.hash(password, 10)
+      user.password = hashedPassword
     }
 
     await user.save()
