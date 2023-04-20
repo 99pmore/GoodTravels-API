@@ -8,7 +8,11 @@ router.get('/countries', async (req, res) => {
     const countries = (await response.json()).map(country => ({
       name: country.name.common,
       region: country.region,
-      flag: country.flags.svg
+      flag: country.flags.svg,
+      capital: country.capital,
+      subregion: country.subregion,
+      population: country.population,
+      map: country.maps.googleMaps,
     }))
     res.send(countries)
 
@@ -24,10 +28,12 @@ router.get('/countries/:name', async (req, res) => {
     const response = await fetch(`https://restcountries.com/v3.1/name/${name}`)
     const countries = (await response.json()).map(country => ({
       name: country.name.common,
-      capital: country.capital,
       region: country.region,
+      flag: country.flags.svg,
+      capital: country.capital,
       subregion: country.subregion,
-      flag: country.flags.svg
+      population: country.population,
+      map: country.maps.googleMaps,
     }))
     res.send(countries)
 

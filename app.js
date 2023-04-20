@@ -4,6 +4,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
@@ -15,6 +16,7 @@ require('./database/db')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
 
 app.use('/api', indexRouter)
 app.use('/api', usersRouter)

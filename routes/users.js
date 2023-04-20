@@ -76,6 +76,24 @@ router.get('/users/:id', async (req, res) => {
   }
 })
 
+// Obtener un usuario por su email
+router.get('/users/:email', async (req, res) => {
+  const { email } = req.params
+
+  try {
+    const user = await User.findOne(email)
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+    res.status(200).send(user)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error interno del servidor' })
+  }
+})
+
 // Actualizar datos de un usuario
 router.patch('/users/:id', async (req, res) => {
   const { id } = req.params
