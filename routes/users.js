@@ -77,11 +77,11 @@ router.get('/users/:id', async (req, res) => {
 })
 
 // Obtener un usuario por su email
-router.get('/users/:email', async (req, res) => {
+router.get('/users/email/:email', async (req, res) => {
   const { email } = req.params
 
   try {
-    const user = await User.findOne(email)
+    const user = await User.findOne({ email: email })
 
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' })
