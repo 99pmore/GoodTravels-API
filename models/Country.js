@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const countrySchema = new mongoose.Schema({
     name: { type: String, required: true },
     region: { type: String, required: true },
     flag: { type: String, required: true },
@@ -10,6 +10,6 @@ const userSchema = new mongoose.Schema({
     map: { type: String },
 })
   
-const Country = mongoose.model('Country', userSchema)
+const Country = mongoose.model('Country', countrySchema)
 
 module.exports = Country
