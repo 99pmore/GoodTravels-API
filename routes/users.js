@@ -257,6 +257,34 @@ router.patch('/users/:id/countriesVisited', async (req, res) => {
   }
 })
 
+// Marcar un país como por visitar desde la lista de países visitados de un usuario
+router.patch('/users/:id/countriesToVisit', async (req, res) => {
+  const { id } = req.params
+  const { name } = req.body
+
+  try {
+    const user = await User.findById(id)
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+
+    const indexCountry = user.countriesVisited.indexOf(name)
+    if (indexCountry < 0) {
+      return res.status(404).json({ message: 'País no encontrado en la lista de países visitados' })
+    }
+
+    user.countriesVisited.splice(indexCountry, 1)
+    user.countriesToVisit.push(name)
+    await user.save()
+    res.status(201).send(user)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error interno del servidor' })
+  }
+})
+
 // Eliminar un país de la lista de visitados de un usuario
 router.delete('/users/:id/countriesVisited', async (req, res) => {
   const { id } = req.params
@@ -284,7 +312,7 @@ router.delete('/users/:id/countriesVisited', async (req, res) => {
   }
 })
 
-// Eliminar un país de la lista de visitados de un usuario
+// Eliminar un país de la lista de por visitar de un usuario
 router.delete('/users/:id/countriesToVisit', async (req, res) => {
   const { id } = req.params
   const { name } = req.body
