@@ -27,7 +27,7 @@ router.get('/countries/:name', async (req, res) => {
     const { name } = req.params
     const response = await fetch(`https://restcountries.com/v3.1/name/${name}`)
     const countries = (await response.json()).map(country => ({
-      name: country.name.common,
+      name: country.name.official,
       region: country.region,
       flag: country.flags.svg,
       capital: country.capital,
