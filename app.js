@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
-app.use('/api', indexRouter)
+app.use('/', indexRouter)
 app.use('/api', usersRouter)
 app.use('/api', countriesRouter)
 
