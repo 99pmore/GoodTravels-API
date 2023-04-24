@@ -1,0 +1,103 @@
+extends layout
+
+block content
+  h1= title
+  hr
+  hr
+
+  h2 Users
+  hr
+
+  p Login de un usuario
+  h3 POST /api/login
+  h4 body: { email, password }
+  hr
+
+  p Registro de un usuario 
+  h3 POST /api/users
+  h4 body: { name, email, password }
+  hr
+
+  p Obtener lista de usuarios
+  h3  GET /api/users
+  hr
+
+  p Obtener datos de un usuario 
+  h3 GET /api/users/:id
+  h4 params: { id }
+  hr
+
+  p Obtener un usuario por su email 
+  h3 GET /api/users/email/:email
+  h4 params: { email }
+  hr
+
+  p Actualizar datos de un usuario 
+  h3 PATCH /api/users/:id
+  h4 params: { id }
+  h4 body: { name, email, password }
+  hr
+
+  p Eliminar un usuario 
+  h3 DELETE /api/users/:id
+  h4 params: { id }
+  hr
+
+  p Obtener lista de países visitados de un usuario 
+  h3 GET /api/users/:id/countriesVisited
+  h4 params: { id }
+  hr
+
+  p Obtener lista de países por visitar de un usuario 
+  h3 GET /api/users/:id/countriesToVisit
+  h4 params: { id }
+  hr
+
+  p Añadir un país a la lista de países visitados de un usuario 
+  h3 POST /api/users/:id/countriesVisited
+  h4 params: { id }
+  h4 body: { name }
+  hr
+
+  p Añadir un país a la lista de países por visitar de un usuario 
+  h3 POST /api/users/:id/countriesToVisit
+  h4 params: { id }
+  h4 body: { name }
+  hr
+
+  p Marcar un país como visitado desde la lista de países por visitar de un usuario
+  h3 PATCH /api/users/:id/countriesVisited
+  h4 params: { id }
+  h4 body : { name }
+  hr
+
+  p Marcar un país como por visitar desde la lista de países visitados de un usuario
+  h3 PATCH /api/users/:id/countriesToVisit
+  h4 params: { id }
+  h4 body : { name }
+  hr
+
+  p Eliminar un país de la lista de países visitados de un usuario 
+  h3 DELETE /api/users/:id/countriesVisited
+  h4 params: { id }
+  h4 body : { name }
+  hr
+
+  p Eliminar un país de la lista de países por visitar de un usuario 
+  h3 DELETE /api/users/:id/countriesToVisit
+  h4 params: { id }
+  h4 body : { name }
+  hr
+
+  hr
+
+  h2 Countries
+  hr
+
+  p Obtener lista de países 
+  h3 GET /api/countries
+  hr
+
+  p Obtener datos de un país
+  h3 GET /api/countries/:name
+  h4 params: { name }
